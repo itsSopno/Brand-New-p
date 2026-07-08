@@ -19,13 +19,16 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #0a0a0c;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #1e1e24;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #6366f1;
 }
@@ -40,25 +43,100 @@ body {
 
 .glass-nav {
   background: rgba(10, 10, 12, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.glass-nav-scrolled {
+  background: rgba(10, 10, 12, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(198, 241, 53, 0.15);
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 50%, #ec4899 100%);
+  background: linear-gradient(135deg, #c6f135 0%, #a5b4fc 50%, #ec4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-purple-blue {
-  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.text-stroke-heavy {
+  font-family: 'Outfit', sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.12);
+  transition: all 0.5s ease;
+}
+
+.text-stroke-heavy:hover {
+  -webkit-text-stroke-color: rgba(198, 241, 53, 0.8);
+}
+
+.cyber-lime {
+  background-color: #c6f135;
+  color: #080a08;
+}
+
+.cyber-lime-border {
+  border-color: #c6f135;
+}
+
+.neo-shadow {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.9);
+}
+
+.neo-shadow-lime {
+  box-shadow: 4px 4px 0px 0px #c6f135;
+}
+
+.neo-card {
+  border: 2px solid #1e1e24;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.neo-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0px 0px rgba(198, 241, 53, 1);
+  border-color: #c6f135;
+}
+
+/* Custom transitions and keyframes */
+@keyframes drawOutline {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.neon-glow-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neon-glow-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle, rgba(198, 241, 53, 0.4) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.neon-glow-btn:hover::before {
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* Lenis smooth scrolling config */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 
