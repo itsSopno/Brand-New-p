@@ -9,13 +9,10 @@ import {
     Layout,
     Command,
     ArrowUpRight,
-    Github,
-    Linkedin,
     Twitter,
     ArrowDown,
-    Cpu,
-    Layers,
-    Sparkles
+    Instagram,
+    Youtube
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -156,92 +153,101 @@ export default function Home() {
     ];
 
     return (
-        <div ref={heroRef} className="w-full bg-[#0a0a0c]">
-            {/* Hero Section Container */}
-            <section className="relative min-h-screen pt-28 pb-12 px-6 lg:px-12 max-w-7xl mx-auto flex flex-col justify-center overflow-hidden">
-                {/* Subtle Ambient BG Glows */}
-                <div className="hero-glow absolute top-1/3 left-1/4 w-80 h-80 rounded-full bg-[#c6f135]/5 blur-[120px] pointer-events-none z-0" />
-                <div className="hero-glow absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-indigo-500/5 blur-[140px] pointer-events-none z-0" />
-
+        <div ref={heroRef} className="w-full bg-[#0d130a]">
+            {/* Hero Section Container (Offsets global app margins to start at top:0) */}
+            <section className="relative h-screen mt-[-5rem] pt-20 px-4 md:px-8 max-w-7xl mx-auto flex flex-col justify-center overflow-hidden">
                 {/* Neo-brutalist Dribbble-style Main Hero Card */}
                 <div
                     ref={cardRef}
-                    className="relative z-10 w-full rounded-[24px] md:rounded-[40px] bg-[#c6f135] text-[#080d07] p-8 md:p-14 border-[3px] border-[#080d07] shadow-[10px_10px_0px_0px_#080d07] overflow-hidden"
+                    className="relative z-10 w-full h-[80vh] min-h-[560px] max-h-[820px] rounded-[36px] md:rounded-[48px] bg-[#caff21] text-[#0d130a] p-6 md:p-10 flex flex-col justify-between overflow-hidden shadow-none transition-all duration-300"
                 >
-                    {/* Background Grid Pattern Overlay */}
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#080d07_1px,transparent_1px)] [background-size:16px_16px]" />
+                    {/* Background Repeat Text Watermark Overlay */}
+                    <div className="absolute inset-0 flex flex-col justify-center gap-12 select-none pointer-events-none opacity-[0.06] text-[#0d130a] z-0">
+                        <div className="text-[12vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none">
+                            SNAP MASTER SNAP MASTER
+                        </div>
+                        <div className="text-[12vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none">
+                            SNAP MASTER SNAP MASTER
+                        </div>
+                    </div>
 
                     {/* Big Background / Main Header Title */}
-                    <div className="w-full text-center select-none mb-4 md:mb-6 z-10 relative">
-                        <h1 className="hero-reveal-text text-[11vw] sm:text-[10vw] lg:text-[7.5vw] font-black tracking-tighter uppercase leading-[0.8] text-[#080d07] m-0">
-                            MERN DEV
+                    <div className="w-full text-center select-none z-10 relative">
+                        <h1 className="hero-reveal-text text-[12vw] sm:text-[11vw] lg:text-[7.8vw] font-black tracking-tighter uppercase leading-[0.75] text-[#0d130a] m-0">
+                            SNAP MASTER
                         </h1>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch relative min-h-[350px] lg:min-h-[400px]">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch relative flex-grow z-10">
                         {/* Left Column: Intro & Socials */}
                         <div className="lg:col-span-4 flex flex-col justify-between py-2 z-20">
                             <div className="hero-reveal-text flex flex-col gap-4">
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#080d07]/15 bg-[#080d07]/5 text-xs font-bold uppercase tracking-widest text-[#080d07] w-fit">
-                                    <span className="w-2 h-2 rounded-full bg-green-600 animate-ping" />
-                                    NABIL HASAN
-                                </span>
-                                <h3 className="text-xl md:text-2xl font-bold tracking-tight leading-snug">
-                                    What makes my code unique is the combination of technical expertise & design details.
-                                </h3>
+                                <p className="text-sm md:text-base font-semibold leading-relaxed max-w-[280px] text-[#0d130a]">
+                                    What makes my photography unique is the combination of technical expertise and a personal touch
+                                </p>
                             </div>
 
                             {/* Minimal Social Buttons */}
-                            <div className="hero-reveal-text flex items-center gap-3 mt-6 lg:mt-0">
+                            <div className="hero-reveal-text flex items-center gap-2 mt-6 lg:mt-0">
                                 <a
-                                    href="https://github.com"
+                                    href="https://instagram.com"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="w-11 h-11 rounded-full border-2 border-[#080d07] flex items-center justify-center bg-[#080d07] text-[#c6f135] hover:bg-[#c6f135] hover:text-[#080d07] transition-all duration-300 shadow-[3px_3px_0px_0px_#080d07]"
-                                    aria-label="GitHub"
+                                    className="w-10 h-10 rounded-full border border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-300"
+                                    aria-label="Instagram"
                                 >
-                                    <Github size={18} />
+                                    <Instagram size={16} />
                                 </a>
                                 <a
-                                    href="https://linkedin.com"
+                                    href="https://youtube.com"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="w-11 h-11 rounded-full border-2 border-[#080d07] flex items-center justify-center bg-transparent text-[#080d07] hover:bg-[#080d07] hover:text-[#c6f135] transition-all duration-300"
-                                    aria-label="LinkedIn"
+                                    className="w-10 h-10 rounded-full border border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-300"
+                                    aria-label="YouTube"
                                 >
-                                    <Linkedin size={18} />
+                                    <Youtube size={16} />
                                 </a>
                                 <a
                                     href="https://twitter.com"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="w-11 h-11 rounded-full border-2 border-[#080d07] flex items-center justify-center bg-transparent text-[#080d07] hover:bg-[#080d07] hover:text-[#c6f135] transition-all duration-300"
-                                    aria-label="Twitter"
+                                    className="w-10 h-10 rounded-full border border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-300"
+                                    aria-label="Twitter/X"
                                 >
-                                    <Twitter size={18} />
+                                    <Twitter size={15} />
                                 </a>
                             </div>
                         </div>
 
-                        {/* Middle Column: Avatar Cutout Graphic */}
-                        <div className="lg:col-span-4 flex items-end justify-center relative min-h-[300px] lg:min-h-0 z-10">
-                            {/* Round Graphic Backing Ring */}
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-2 border-dashed border-[#080d07]/20 pointer-events-none" />
-
-                            {/* Developer Portrait */}
-                            <img
-                                src={DEV_IMAGE}
-                                alt="Nabil Hasan"
-                                className="hero-dev-image w-[240px] md:w-[280px] lg:w-[325px] h-[320px] md:h-[360px] object-cover object-center rounded-3xl border-[3px] border-[#080d07] shadow-[6px_6px_0px_0px_#080d07] filter grayscale hover:grayscale-0 transition-all duration-700 ease-out"
-                            />
+                        {/* Middle Column: Avatar Cutout Graphic with Horizontal ghost frames */}
+                        <div className="lg:col-span-4 flex items-end justify-center relative min-h-[220px] lg:min-h-0 z-10">
+                            <div className="relative flex items-end justify-center h-full w-full max-w-[320px] mx-auto">
+                                {/* Ghost portrait 1 */}
+                                <img
+                                    src={DEV_IMAGE}
+                                    alt="Developer portrait cutout duplicate 1"
+                                    className="absolute bottom-0 w-[170px] md:w-[210px] lg:w-[245px] opacity-15 filter grayscale transform -translate-x-[40px] pointer-events-none scale-95"
+                                />
+                                {/* Ghost portrait 2 */}
+                                <img
+                                    src={DEV_IMAGE}
+                                    alt="Developer portrait cutout duplicate 2"
+                                    className="absolute bottom-0 w-[170px] md:w-[210px] lg:w-[245px] opacity-35 filter grayscale transform -translate-x-[20px] pointer-events-none scale-[0.98]"
+                                />
+                                {/* Main Developer Portrait */}
+                                <img
+                                    src={DEV_IMAGE}
+                                    alt="Nabil Hasan"
+                                    className="hero-dev-image relative bottom-0 z-10 w-[170px] md:w-[210px] lg:w-[245px] object-contain object-bottom hover:scale-103 transition-transform duration-500 filter grayscale hover:grayscale-0"
+                                />
+                            </div>
                         </div>
 
                         {/* Right Column: Bio & Action */}
                         <div className="lg:col-span-4 flex flex-col justify-between items-start lg:items-end py-2 z-20 text-left lg:text-right">
                             <div className="hero-reveal-text flex flex-col gap-4 lg:items-end">
-                                <span className="text-xs font-bold uppercase tracking-wider text-[#080d07]/60">BIOGRAPHY</span>
-                                <p className="text-base font-semibold leading-relaxed max-w-xs">
-                                    I stack MongoDB, Express.js, React, Node.js, and clean visual assets. Building functional interfaces styled to the pixel.
+                                <p className="text-sm md:text-base font-semibold leading-relaxed max-w-[280px] text-[#0d130a]">
+                                    Immerse yourself in a world where each frame tells a tale, capturing the beauty of the ordinary and the extraordinary
                                 </p>
                             </div>
 
@@ -249,7 +255,7 @@ export default function Home() {
                             <div className="hero-reveal-text w-full flex lg:justify-end mt-6 lg:mt-0">
                                 <a
                                     href="#tech-section"
-                                    className="w-12 h-12 rounded-full border-2 border-[#080d07] flex items-center justify-center bg-transparent text-[#080d07] hover:bg-[#080d07] hover:text-[#c6f135] transition-all duration-300"
+                                    className="w-11 h-11 rounded-full bg-[#0d130a] text-[#caff21] flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-black/10 cursor-pointer"
                                     aria-label="Scroll Down"
                                     onClick={(e) => {
                                         e.preventDefault();
@@ -260,15 +266,6 @@ export default function Home() {
                                 </a>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Bottom Mini Navigation Links */}
-                    <div className="w-full border-t border-[#080d07]/15 mt-8 pt-6 flex flex-wrap justify-between md:justify-center items-center gap-6 md:gap-16 text-xs font-extrabold uppercase tracking-widest text-[#080d07]/80">
-                        <Link to="/about" className="hover:text-[#080d07] hover:underline underline-offset-4 transition-all">About Profile</Link>
-                        <span className="hidden md:inline w-1.5 h-1.5 bg-[#080d07] rounded-full" />
-                        <Link to="/projects" className="hover:text-[#080d07] hover:underline underline-offset-4 transition-all">View Works</Link>
-                        <span className="hidden md:inline w-1.5 h-1.5 bg-[#080d07] rounded-full" />
-                        <Link to="/contact" className="hover:text-[#080d07] hover:underline underline-offset-4 transition-all">Get in Touch</Link>
                     </div>
                 </div>
             </section>
