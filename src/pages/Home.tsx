@@ -155,148 +155,127 @@ export default function Home() {
     return (
         <div ref={heroRef} className="w-full bg-[#0d130a]">
             {/* ─── HERO SECTION ─────────────────────────────────────────── */}
-            <section className="pl-[16px] pr-[16px] pt-[16px]">
-                <section className="relative h-screen w-full mt-[-5rem] flex flex-col justify-between overflow-hidden bg-[#caff21] rounded-3xl">
+            <section className="px-3 pt-3 sm:px-4 sm:pt-4">
+                <section className="relative w-full mt-[-5rem] flex flex-col justify-between overflow-hidden bg-[#caff21] rounded-2xl sm:rounded-3xl"
+                    style={{ minHeight: 'calc(100svh - 0px)' }}>
 
                     {/* Watermark background text */}
-                    <div className="absolute inset-0 flex flex-col justify-center gap-10 select-none pointer-events-none z-0">
-                        <div className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">
-                            SNAP MASTER SNAP MASTER
-                        </div>
-                        <div className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">
-                            SNAP MASTER SNAP MASTER
-                        </div>
-                        <div className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">
-                            SNAP MASTER SNAP MASTER
-                        </div>
-                    </div>
-
-                    {/* Dot grid decoration – top right */}
-                    <div className="absolute top-8 right-10 grid grid-cols-6 gap-[6px] opacity-20 pointer-events-none select-none z-0">
-                        {Array.from({ length: 30 }).map((_, i) => (
-                            <div key={i} className="w-[3px] h-[3px] rounded-full bg-[#0d130a]" />
+                    <div className="absolute inset-0 flex flex-col justify-center gap-8 select-none pointer-events-none z-0 overflow-hidden">
+                        {['SNAP MASTER SNAP MASTER', 'SNAP MASTER SNAP MASTER', 'SNAP MASTER SNAP MASTER'].map((t, i) => (
+                            <div key={i} className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">{t}</div>
                         ))}
                     </div>
 
-                    {/* Dot grid decoration – bottom left */}
-                    <div className="absolute bottom-12 left-10 grid grid-cols-5 gap-[6px] opacity-15 pointer-events-none select-none z-0">
-                        {Array.from({ length: 20 }).map((_, i) => (
-                            <div key={i} className="w-[3px] h-[3px] rounded-full bg-[#0d130a]" />
-                        ))}
+                    {/* Dot grids – only on md+ */}
+                    <div className="hidden md:grid absolute top-8 right-10 grid-cols-6 gap-[6px] opacity-20 pointer-events-none select-none z-0">
+                        {Array.from({ length: 30 }).map((_, i) => (<div key={i} className="w-[3px] h-[3px] rounded-full bg-[#0d130a]" />))}
+                    </div>
+                    <div className="hidden md:grid absolute bottom-16 left-10 grid-cols-5 gap-[6px] opacity-15 pointer-events-none select-none z-0">
+                        {Array.from({ length: 20 }).map((_, i) => (<div key={i} className="w-[3px] h-[3px] rounded-full bg-[#0d130a]" />))}
                     </div>
 
                     {/* ── Top bar: role badge + availability ── */}
                     <div
                         ref={cardRef}
-                        className="relative z-10 flex items-center justify-between px-8 pt-28 md:pt-32 md:px-12"
+                        className="relative z-10 flex items-center justify-between px-5 pt-24 sm:pt-28 md:pt-32 sm:px-8 md:px-12"
                     >
                         {/* Role badge */}
-                        <div className="hero-reveal-text flex items-center gap-2 bg-[#0d130a]/10 border border-[#0d130a]/20 rounded-full px-4 py-1.5">
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d130a]">Full-Stack Developer</span>
-                            <span className="text-[10px] font-bold text-[#0d130a]/50">/ MERN Stack</span>
+                        <div className="hero-reveal-text flex items-center gap-1.5 bg-[#0d130a]/10 border border-[#0d130a]/20 rounded-full px-3 py-1 sm:px-4 sm:py-1.5">
+                            <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[#0d130a]">Full-Stack Dev</span>
+                            <span className="text-[9px] sm:text-[10px] font-bold text-[#0d130a]/50 hidden sm:inline">/ MERN Stack</span>
                         </div>
 
                         {/* Availability pill */}
-                        <div className="hero-reveal-text flex items-center gap-2 bg-[#0d130a] rounded-full px-4 py-1.5">
-                            <span className="relative flex h-2 w-2">
+                        <div className="hero-reveal-text flex items-center gap-1.5 sm:gap-2 bg-[#0d130a] rounded-full px-3 py-1 sm:px-4 sm:py-1.5">
+                            <span className="relative flex h-2 w-2 shrink-0">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#caff21] opacity-75" />
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#caff21]" />
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-[#caff21]">Available for work</span>
+                            <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider sm:tracking-widest text-[#caff21]">Available</span>
+                            <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-[#caff21] hidden sm:inline">for work</span>
                         </div>
                     </div>
 
                     {/* ── Main headline ── */}
-                    <div className="relative z-10 px-8 md:px-12 text-center">
-                        {/* Subtitle line above */}
-                        <p className="hero-reveal-text text-xs font-bold uppercase tracking-[0.35em] text-[#0d130a]/50 mb-3">
-                            Based in Bangladesh &nbsp;·&nbsp; Building for the Web
+                    <div className="relative z-10 px-5 sm:px-8 md:px-12 text-center">
+                        <p className="hero-reveal-text text-[9px] sm:text-xs font-bold uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[#0d130a]/50 mb-2 sm:mb-3">
+                            Based in Bangladesh&nbsp;·&nbsp;Building for the Web
                         </p>
-                        {/* Giant split title: solid + outline */}
-                        <h1 className="hero-reveal-text font-black uppercase leading-[0.85] tracking-tighter m-0 select-none">
-                            <span className="block text-[14vw] sm:text-[12vw] lg:text-[9vw] text-[#0d130a]">Nabil</span>
+                        <h1 className="hero-reveal-text font-black uppercase leading-[0.82] tracking-tighter m-0 select-none">
+                            <span className="block text-[17vw] sm:text-[14vw] md:text-[11vw] lg:text-[9vw] text-[#0d130a]">Nabil</span>
                             <span
-                                className="block text-[14vw] sm:text-[12vw] lg:text-[9vw]"
-                                style={{
-                                    WebkitTextStroke: '2px #0d130a',
-                                    color: 'transparent',
-                                }}
+                                className="block text-[17vw] sm:text-[14vw] md:text-[11vw] lg:text-[9vw]"
+                                style={{ WebkitTextStroke: '2px #0d130a', color: 'transparent' }}
                             >
                                 Hasan
                             </span>
                         </h1>
                     </div>
 
-                    {/* ── Bottom 3-column row ── */}
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end px-8 pb-8 md:px-12 md:pb-10">
+                    {/* ── MOBILE: Image centered between title and bottom bar ── */}
+                    <div className="relative z-10 flex items-end justify-center lg:hidden py-4">
+                        <div className="relative flex items-end justify-center w-full max-w-[200px] sm:max-w-[240px] mx-auto">
+                            <img src={DEV_IMAGE} alt="" aria-hidden className="absolute bottom-0 w-[120px] sm:w-[155px] opacity-10 grayscale -translate-x-[30px] scale-[0.93] pointer-events-none" />
+                            <img src={DEV_IMAGE} alt="" aria-hidden className="absolute bottom-0 w-[120px] sm:w-[155px] opacity-25 grayscale -translate-x-[15px] scale-[0.97] pointer-events-none" />
+                            <img
+                                src={DEV_IMAGE}
+                                alt="Nabil Hasan – Full-Stack Developer"
+                                className="hero-dev-image relative bottom-0 z-10 w-[120px] sm:w-[155px] object-contain object-bottom grayscale hover:grayscale-0 transition-all duration-700"
+                            />
+                        </div>
+                    </div>
+
+                    {/* ── Bottom row (full 3-col on lg, stacked mobile) ── */}
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-end px-5 pb-6 sm:px-8 sm:pb-8 md:px-12 md:pb-10">
 
                         {/* Left: intro + socials */}
-                        <div className="lg:col-span-4 flex flex-col gap-5">
-                            <p className="hero-reveal-text text-sm font-semibold leading-relaxed max-w-[300px] text-[#0d130a]/80">
-                                I craft <span className="text-[#0d130a] font-black">scalable, high-performance</span> web products — from pixel-perfect UIs to rock-solid APIs.
+                        <div className="lg:col-span-4 flex flex-col gap-3 sm:gap-5">
+                            <p className="hero-reveal-text text-xs sm:text-sm font-semibold leading-relaxed max-w-[320px] text-[#0d130a]/80">
+                                I craft&nbsp;<span className="text-[#0d130a] font-black">scalable, high-performance</span>&nbsp;web products — from pixel-perfect UIs to rock-solid APIs.
                             </p>
-
                             {/* Social icons */}
                             <div className="hero-reveal-text flex items-center gap-2">
                                 {[
-                                    { href: 'https://instagram.com', icon: <Instagram size={15} />, label: 'Instagram' },
-                                    { href: 'https://youtube.com', icon: <Youtube size={15} />, label: 'YouTube' },
-                                    { href: 'https://twitter.com', icon: <Twitter size={14} />, label: 'Twitter' },
+                                    { href: 'https://instagram.com', icon: <Instagram size={14} />, label: 'Instagram' },
+                                    { href: 'https://youtube.com', icon: <Youtube size={14} />, label: 'YouTube' },
+                                    { href: 'https://twitter.com', icon: <Twitter size={13} />, label: 'Twitter' },
                                 ].map((s) => (
-                                    <a
-                                        key={s.label}
-                                        href={s.href}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        aria-label={s.label}
-                                        className="w-9 h-9 rounded-full border-2 border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-200"
-                                    >
+                                    <a key={s.label} href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
+                                        className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border-2 border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-200">
                                         {s.icon}
                                     </a>
                                 ))}
-
-                                {/* Separator + year badge */}
-                                <span className="ml-2 text-[11px] font-bold text-[#0d130a]/40 tracking-wider">© 2025</span>
+                                <span className="ml-2 text-[10px] font-bold text-[#0d130a]/40 tracking-wider">© 2025</span>
                             </div>
                         </div>
 
-                        {/* Center: developer image */}
-                        <div className="lg:col-span-4 flex items-center justify-center relative min-h-[200px] lg:min-h-0">
+                        {/* Center: DESKTOP ONLY image */}
+                        <div className="hidden lg:flex lg:col-span-4 items-center justify-center relative">
                             <div className="relative flex items-end justify-center h-full w-full max-w-[300px] mx-auto -translate-y-8">
-                                {/* Ghost trail 1 */}
-                                <img src={DEV_IMAGE} alt="" aria-hidden
-                                    className="absolute bottom-0 w-[160px] md:w-[200px] lg:w-[235px] opacity-10 grayscale -translate-x-[44px] scale-[0.93] pointer-events-none" />
-                                {/* Ghost trail 2 */}
-                                <img src={DEV_IMAGE} alt="" aria-hidden
-                                    className="absolute bottom-0 w-[160px] md:w-[200px] lg:w-[235px] opacity-25 grayscale -translate-x-[22px] scale-[0.97] pointer-events-none" />
-                                {/* Main portrait */}
+                                <img src={DEV_IMAGE} alt="" aria-hidden className="absolute bottom-0 w-[235px] opacity-10 grayscale -translate-x-[44px] scale-[0.93] pointer-events-none" />
+                                <img src={DEV_IMAGE} alt="" aria-hidden className="absolute bottom-0 w-[235px] opacity-25 grayscale -translate-x-[22px] scale-[0.97] pointer-events-none" />
                                 <img
                                     src={DEV_IMAGE}
                                     alt="Nabil Hasan – Full-Stack Developer"
-                                    className="hero-dev-image relative bottom-0 z-10 w-[160px] md:w-[200px] lg:w-[235px] object-contain object-bottom grayscale hover:grayscale-0 transition-all duration-700 hover:scale-[1.03]"
+                                    className="hero-dev-image relative bottom-0 z-10 w-[235px] object-contain object-bottom grayscale hover:grayscale-0 transition-all duration-700 hover:scale-[1.03]"
                                 />
                             </div>
                         </div>
 
                         {/* Right: bio + scroll CTA */}
-                        <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-5">
-                            <p className="hero-reveal-text text-sm font-semibold leading-relaxed max-w-[300px] text-[#0d130a]/80 text-left lg:text-right">
-                                Currently building <span className="text-[#0d130a] font-black">modern digital experiences</span> with React, Node.js, MongoDB & Express.
+                        <div className="lg:col-span-4 flex flex-row lg:flex-col items-center lg:items-end justify-between lg:justify-start gap-3 lg:gap-5">
+                            <p className="hero-reveal-text text-xs sm:text-sm font-semibold leading-relaxed max-w-[260px] lg:max-w-[300px] text-[#0d130a]/80 text-left lg:text-right">
+                                Currently building&nbsp;<span className="text-[#0d130a] font-black">modern digital experiences</span>&nbsp;with React, Node.js & MongoDB.
                             </p>
-
-                            {/* Scroll down CTA */}
-                            <div className="hero-reveal-text flex items-center gap-2.5">
+                            <div className="hero-reveal-text flex items-center gap-2 shrink-0">
                                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#0d130a]/60 hidden lg:block">Scroll</span>
                                 <a
                                     href="#tech-section"
-                                    className="w-10 h-10 rounded-full bg-[#0d130a] text-[#caff21] flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-lg cursor-pointer"
+                                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#0d130a] text-[#caff21] flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-lg cursor-pointer"
                                     aria-label="Scroll Down"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        document.getElementById('tech-section')?.scrollIntoView({ behavior: 'smooth' });
-                                    }}
+                                    onClick={(e) => { e.preventDefault(); document.getElementById('tech-section')?.scrollIntoView({ behavior: 'smooth' }); }}
                                 >
-                                    <ArrowDown size={16} className="animate-bounce" />
+                                    <ArrowDown size={15} className="animate-bounce" />
                                 </a>
                             </div>
                         </div>
@@ -304,6 +283,7 @@ export default function Home() {
                     </div>
                 </section>
             </section>
+
 
 
             {/* Tech Capabilities Section */}
