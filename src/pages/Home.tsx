@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
+    Layout,
+    Command,
+    Code,
+    Database,
+    ArrowRight,
+    ArrowUpRight,
     Twitter,
     ArrowDown,
     Instagram,
     Youtube
 } from 'lucide-react';
-
-// Import refactored sub-components
-import TechStack from '../components/TechStack';
-import ProjectsShowcase from '../components/ProjectsShowcase';
-import CTASection from '../components/CTASection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,6 +34,8 @@ const DEV_IMAGE = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?
 export default function Home() {
     const heroRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
+    const techRef = useRef<HTMLDivElement>(null);
+    const projectsSectionRef = useRef<HTMLDivElement>(null);
 
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
@@ -150,124 +154,162 @@ export default function Home() {
 
     return (
         <div ref={heroRef} className="w-full bg-[#0d130a]">
-            {/* Hero Section Container (Offsets global app margins to start at top:0) */}
-            <section className="pl-[20px] pr-[20px] pt-[20px]
-            ">
-                <section className="relative h-screen w-full mt-[-5rem] flex flex-col justify-center overflow-hidden bg-[#caff21] rounded-tr-3xl rounded-tl-3xl rounded-br-3xl rounded-bl-3xl ">
-                    {/* Neo-brutalist Dribbble-style Main Hero Card (Stretched to cover full screen) */}
+            {/* ─── HERO SECTION ─────────────────────────────────────────── */}
+            <section className="pl-[16px] pr-[16px] pt-[16px]">
+                <section className="relative h-screen w-full mt-[-5rem] flex flex-col justify-between overflow-hidden bg-[#caff21] rounded-3xl">
+
+                    {/* Watermark background text */}
+                    <div className="absolute inset-0 flex flex-col justify-center gap-10 select-none pointer-events-none z-0">
+                        <div className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">
+                            SNAP MASTER SNAP MASTER
+                        </div>
+                        <div className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">
+                            SNAP MASTER SNAP MASTER
+                        </div>
+                        <div className="text-[13vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none text-[#0d130a] opacity-[0.04]">
+                            SNAP MASTER SNAP MASTER
+                        </div>
+                    </div>
+
+                    {/* Dot grid decoration – top right */}
+                    <div className="absolute top-8 right-10 grid grid-cols-6 gap-[6px] opacity-20 pointer-events-none select-none z-0">
+                        {Array.from({ length: 30 }).map((_, i) => (
+                            <div key={i} className="w-[3px] h-[3px] rounded-full bg-[#0d130a]" />
+                        ))}
+                    </div>
+
+                    {/* Dot grid decoration – bottom left */}
+                    <div className="absolute bottom-12 left-10 grid grid-cols-5 gap-[6px] opacity-15 pointer-events-none select-none z-0">
+                        {Array.from({ length: 20 }).map((_, i) => (
+                            <div key={i} className="w-[3px] h-[3px] rounded-full bg-[#0d130a]" />
+                        ))}
+                    </div>
+
+                    {/* ── Top bar: role badge + availability ── */}
                     <div
                         ref={cardRef}
-                        className="relative z-10 w-full h-full bg-[#caff21] text-[#0d130a] p-6 pt-24 pb-20 md:p-12 md:pt-28 md:pb-24 flex flex-col justify-between overflow-hidden shadow-none transition-all duration-300"
+                        className="relative z-10 flex items-center justify-between px-8 pt-28 md:pt-32 md:px-12"
                     >
-                        {/* Background Repeat Text Watermark Overlay */}
-                        <div className="absolute inset-0 flex flex-col justify-center gap-12 select-none pointer-events-none opacity-[0.06] text-[#0d130a] z-0">
-                            <div className="text-[12vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none">
-                                SNAP MASTER SNAP MASTER
-                            </div>
-                            <div className="text-[12vw] font-black uppercase text-center tracking-tighter whitespace-nowrap leading-none">
-                                SNAP MASTER SNAP MASTER
+                        {/* Role badge */}
+                        <div className="hero-reveal-text flex items-center gap-2 bg-[#0d130a]/10 border border-[#0d130a]/20 rounded-full px-4 py-1.5">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0d130a]">Full-Stack Developer</span>
+                            <span className="text-[10px] font-bold text-[#0d130a]/50">/ MERN Stack</span>
+                        </div>
+
+                        {/* Availability pill */}
+                        <div className="hero-reveal-text flex items-center gap-2 bg-[#0d130a] rounded-full px-4 py-1.5">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#caff21] opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#caff21]" />
+                            </span>
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-[#caff21]">Available for work</span>
+                        </div>
+                    </div>
+
+                    {/* ── Main headline ── */}
+                    <div className="relative z-10 px-8 md:px-12 text-center">
+                        {/* Subtitle line above */}
+                        <p className="hero-reveal-text text-xs font-bold uppercase tracking-[0.35em] text-[#0d130a]/50 mb-3">
+                            Based in Bangladesh &nbsp;·&nbsp; Building for the Web
+                        </p>
+                        {/* Giant split title: solid + outline */}
+                        <h1 className="hero-reveal-text font-black uppercase leading-[0.85] tracking-tighter m-0 select-none">
+                            <span className="block text-[14vw] sm:text-[12vw] lg:text-[9vw] text-[#0d130a]">Nabil</span>
+                            <span
+                                className="block text-[14vw] sm:text-[12vw] lg:text-[9vw]"
+                                style={{
+                                    WebkitTextStroke: '2px #0d130a',
+                                    color: 'transparent',
+                                }}
+                            >
+                                Hasan
+                            </span>
+                        </h1>
+                    </div>
+
+                    {/* ── Bottom 3-column row ── */}
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end px-8 pb-8 md:px-12 md:pb-10">
+
+                        {/* Left: intro + socials */}
+                        <div className="lg:col-span-4 flex flex-col gap-5">
+                            <p className="hero-reveal-text text-sm font-semibold leading-relaxed max-w-[300px] text-[#0d130a]/80">
+                                I craft <span className="text-[#0d130a] font-black">scalable, high-performance</span> web products — from pixel-perfect UIs to rock-solid APIs.
+                            </p>
+
+                            {/* Social icons */}
+                            <div className="hero-reveal-text flex items-center gap-2">
+                                {[
+                                    { href: 'https://instagram.com', icon: <Instagram size={15} />, label: 'Instagram' },
+                                    { href: 'https://youtube.com', icon: <Youtube size={15} />, label: 'YouTube' },
+                                    { href: 'https://twitter.com', icon: <Twitter size={14} />, label: 'Twitter' },
+                                ].map((s) => (
+                                    <a
+                                        key={s.label}
+                                        href={s.href}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label={s.label}
+                                        className="w-9 h-9 rounded-full border-2 border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-200"
+                                    >
+                                        {s.icon}
+                                    </a>
+                                ))}
+
+                                {/* Separator + year badge */}
+                                <span className="ml-2 text-[11px] font-bold text-[#0d130a]/40 tracking-wider">© 2025</span>
                             </div>
                         </div>
 
-                        {/* Big Background / Main Header Title */}
-                        <div className="w-full text-center select-none z-10 relative">
-                            <h1 className="hero-reveal-text text-[12vw] sm:text-[11vw] lg:text-[7.8vw] font-black tracking-tighter uppercase leading-[0.75] text-[#0d130a] m-0">
-                                SNAP MASTER
-                            </h1>
-                        </div>
+                        {/* Center: developer image */}
+                        <div className="lg:col-span-4 flex items-end justify-center relative min-h-[200px] lg:min-h-0">
+                            <div className="relative flex items-end justify-center h-full w-full max-w-[300px] mx-auto">
+                                {/* Ghost trail 1 */}
+                                <img src={DEV_IMAGE} alt="" aria-hidden
+                                    className="absolute bottom-0 w-[160px] md:w-[200px] lg:w-[235px] opacity-10 grayscale -translate-x-[44px] scale-[0.93] pointer-events-none" />
+                                {/* Ghost trail 2 */}
+                                <img src={DEV_IMAGE} alt="" aria-hidden
+                                    className="absolute bottom-0 w-[160px] md:w-[200px] lg:w-[235px] opacity-25 grayscale -translate-x-[22px] scale-[0.97] pointer-events-none" />
+                                {/* Main portrait */}
+                                <img
+                                    src={DEV_IMAGE}
+                                    alt="Nabil Hasan – Full-Stack Developer"
+                                    className="hero-dev-image relative bottom-0 z-10 w-[160px] md:w-[200px] lg:w-[235px] object-contain object-bottom grayscale hover:grayscale-0 transition-all duration-700 hover:scale-[1.03]"
+                                />
 
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch relative flex-grow z-10">
-                            {/* Left Column: Intro & Socials */}
-                            <div className="lg:col-span-4 flex flex-col justify-between py-2 z-20">
-                                <div className="hero-reveal-text flex flex-col gap-4">
-                                    <p className="text-sm md:text-base font-semibold leading-relaxed max-w-[280px] text-[#0d130a]">
-                                        What makes my photography unique is the combination of technical expertise and a personal touch
-                                    </p>
-                                </div>
-
-                                {/* Minimal Social Buttons */}
-                                <div className="hero-reveal-text flex items-center gap-2 mt-6 lg:mt-0">
-                                    <a
-                                        href="https://instagram.com"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="w-10 h-10 rounded-full border border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-300"
-                                        aria-label="Instagram"
-                                    >
-                                        <Instagram size={16} />
-                                    </a>
-                                    <a
-                                        href="https://youtube.com"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="w-10 h-10 rounded-full border border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-300"
-                                        aria-label="YouTube"
-                                    >
-                                        <Youtube size={16} />
-                                    </a>
-                                    <a
-                                        href="https://twitter.com"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="w-10 h-10 rounded-full border border-[#0d130a] flex items-center justify-center text-[#0d130a] hover:bg-[#0d130a] hover:text-[#caff21] transition-all duration-300"
-                                        aria-label="Twitter/X"
-                                    >
-                                        <Twitter size={15} />
-                                    </a>
-                                </div>
-                            </div>
-
-                            {/* Middle Column: Avatar Cutout Graphic with Horizontal ghost frames */}
-                            <div className="lg:col-span-4 flex items-end justify-center relative min-h-[220px] lg:min-h-0 z-10">
-                                <div className="relative flex items-end justify-center h-full w-full max-w-[320px] mx-auto">
-                                    {/* Ghost portrait 1 */}
-                                    <img
-                                        src={DEV_IMAGE}
-                                        alt="Developer portrait cutout duplicate 1"
-                                        className="absolute bottom-0 w-[170px] md:w-[210px] lg:w-[245px] opacity-15 filter grayscale transform -translate-x-[40px] pointer-events-none scale-95"
-                                    />
-                                    {/* Ghost portrait 2 */}
-                                    <img
-                                        src={DEV_IMAGE}
-                                        alt="Developer portrait cutout duplicate 2"
-                                        className="absolute bottom-0 w-[170px] md:w-[210px] lg:w-[245px] opacity-35 filter grayscale transform -translate-x-[20px] pointer-events-none scale-[0.98]"
-                                    />
-                                    {/* Main Developer Portrait */}
-                                    <img
-                                        src={DEV_IMAGE}
-                                        alt="Nabil Hasan"
-                                        className="hero-dev-image relative bottom-0 z-10 w-[170px] md:w-[210px] lg:w-[245px] object-contain object-bottom hover:scale-103 transition-transform duration-500 filter grayscale hover:grayscale-0"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Right Column: Bio & Action */}
-                            <div className="lg:col-span-4 flex flex-col justify-between items-start lg:items-end py-2 z-20 text-left lg:text-right">
-                                <div className="hero-reveal-text flex flex-col gap-4 lg:items-end">
-                                    <p className="text-sm md:text-base font-semibold leading-relaxed max-w-[280px] text-[#0d130a]">
-                                        Immerse yourself in a world where each frame tells a tale, capturing the beauty of the ordinary and the extraordinary
-                                    </p>
-                                </div>
-
-                                {/* Scrolling Prompt Trigger */}
-                                <div className="hero-reveal-text w-full flex lg:justify-end mt-6 lg:mt-0">
-                                    <a
-                                        href="#tech-section"
-                                        className="w-11 h-11 rounded-full bg-[#0d130a] text-[#caff21] flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-black/10 cursor-pointer"
-                                        aria-label="Scroll Down"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            document.getElementById('tech-section')?.scrollIntoView({ behavior: 'smooth' });
-                                        }}
-                                    >
-                                        <ArrowDown size={18} className="animate-bounce" />
-                                    </a>
+                                {/* Floating name card under portrait */}
+                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#0d130a] text-[#caff21] text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full whitespace-nowrap z-20">
+                                    Nabil Hasan
                                 </div>
                             </div>
                         </div>
+
+                        {/* Right: bio + scroll CTA */}
+                        <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-5">
+                            <p className="hero-reveal-text text-sm font-semibold leading-relaxed max-w-[300px] text-[#0d130a]/80 text-left lg:text-right">
+                                Currently building <span className="text-[#0d130a] font-black">modern digital experiences</span> with React, Node.js, MongoDB & Express.
+                            </p>
+
+                            {/* Scroll down CTA */}
+                            <div className="hero-reveal-text flex items-center gap-2.5">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-[#0d130a]/60 hidden lg:block">Scroll</span>
+                                <a
+                                    href="#tech-section"
+                                    className="w-10 h-10 rounded-full bg-[#0d130a] text-[#caff21] flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-lg cursor-pointer"
+                                    aria-label="Scroll Down"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        document.getElementById('tech-section')?.scrollIntoView({ behavior: 'smooth' });
+                                    }}
+                                >
+                                    <ArrowDown size={16} className="animate-bounce" />
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
             </section>
+
 
             {/* Tech Capabilities Section */}
             <section id="tech-section" ref={techRef} className="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 relative z-10">
