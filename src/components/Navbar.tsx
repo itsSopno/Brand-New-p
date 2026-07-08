@@ -53,12 +53,12 @@ export default function Navbar() {
     return (
         <nav className={navClasses}>
             {isHome && !isScrolled ? (
-                <div className="max-w-7xl mx-auto px-6 flex justify-center gap-8 md:gap-16 text-sm font-bold uppercase tracking-widest text-[#8b997c]">
+                <div className="max-w-7xl mx-auto px-6 flex justify-center gap-10 md:gap-16 text-sm font-bold uppercase tracking-widest text-[#0d130a]/80">
                     {navLinks.map((link) => (
                         <Link
                             key={link.title + link.path}
                             to={link.path}
-                            className="hover:text-white transition-colors duration-300 select-none"
+                            className="hover:text-black hover:scale-105 transition-all duration-300 select-none text-[#0d130a]"
                         >
                             {link.title}
                         </Link>

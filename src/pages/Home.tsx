@@ -155,11 +155,11 @@ export default function Home() {
     return (
         <div ref={heroRef} className="w-full bg-[#0d130a]">
             {/* Hero Section Container (Offsets global app margins to start at top:0) */}
-            <section className="relative h-screen mt-[-5rem] pt-20 px-4 md:px-8 max-w-7xl mx-auto flex flex-col justify-center overflow-hidden">
-                {/* Neo-brutalist Dribbble-style Main Hero Card */}
+            <section className="relative h-screen w-full mt-[-5rem] flex flex-col justify-center overflow-hidden bg-[#caff21]">
+                {/* Neo-brutalist Dribbble-style Main Hero Card (Stretched to cover full screen) */}
                 <div
                     ref={cardRef}
-                    className="relative z-10 w-full h-[80vh] min-h-[560px] max-h-[820px] rounded-[36px] md:rounded-[48px] bg-[#caff21] text-[#0d130a] p-6 md:p-10 flex flex-col justify-between overflow-hidden shadow-none transition-all duration-300"
+                    className="relative z-10 w-full h-full bg-[#caff21] text-[#0d130a] p-6 pt-24 pb-20 md:p-12 md:pt-28 md:pb-24 flex flex-col justify-between overflow-hidden shadow-none transition-all duration-300"
                 >
                     {/* Background Repeat Text Watermark Overlay */}
                     <div className="absolute inset-0 flex flex-col justify-center gap-12 select-none pointer-events-none opacity-[0.06] text-[#0d130a] z-0">
