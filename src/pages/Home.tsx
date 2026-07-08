@@ -226,7 +226,7 @@ export default function Home() {
                     </div>
 
                     {/* ── Bottom row (full 3-col on lg, stacked mobile) ── */}
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-end px-5 pb-6 sm:px-8 sm:pb-8 md:px-12 md:pb-10">
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-end px-5 pb-24 sm:px-8 sm:pb-20 md:px-12 md:pb-10 lg:pb-10">
 
                         {/* Left: intro + socials */}
                         <div className="lg:col-span-4 flex flex-col gap-3 sm:gap-5">
