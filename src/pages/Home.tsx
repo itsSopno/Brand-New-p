@@ -103,15 +103,56 @@ export default function Home() {
                 yoyo: true,
                 ease: 'sine.inOut'
             });
+
+            // Tech card reveals
+            gsap.fromTo('.tech-card',
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: techRef.current,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                }
+            );
+
+            // Project card reveals
+            gsap.fromTo('.project-anim-card',
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: projectsSectionRef.current,
+                        start: 'top 80%'
+                    }
+                }
+            );
         }, heroRef);
 
         return () => ctx.revert();
     }, [loading]);
 
+    const techStack = [
+        { name: 'Frontend Architecture', desc: 'React, TS, Tailwind CSS, High-end Micro-interactions.', icon: <Layout className="text-[#c6f135]" size={24} /> },
+        { name: 'Creative Animations', desc: 'Fluid movement, GSAP, SVG morphs, WebGL & Canvas.', icon: <Command className="text-pink-400" size={24} /> },
+        { name: 'Robust Backends', desc: 'Secure APIs, JWT, Middleware, Express.js & Node.', icon: <Code className="text-violet-400" size={24} /> },
+        { name: 'Data Pipeline', desc: 'Databases, Mongoose mappings, Redis caching levels.', icon: <Database className="text-sky-400" size={24} /> }
+    ];
+
     return (
         <div ref={heroRef} className="w-full bg-[#0d130a]">
             {/* Hero Section Container (Offsets global app margins to start at top:0) */}
-            <section className="pb-[1000px] pr-[10px] ">
+            <section className="pl-[20px] pr-[20px] pt-[20px]
+            ">
                 <section className="relative h-screen w-full mt-[-5rem] flex flex-col justify-center overflow-hidden bg-[#caff21] rounded-tr-3xl rounded-tl-3xl rounded-br-3xl rounded-bl-3xl ">
                     {/* Neo-brutalist Dribbble-style Main Hero Card (Stretched to cover full screen) */}
                     <div
@@ -228,14 +269,103 @@ export default function Home() {
                 </section>
             </section>
 
-            {/* Technical Stack Section */}
-            <TechStack />
+            {/* Tech Capabilities Section */}
+            <section id="tech-section" ref={techRef} className="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 relative z-10">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">Technical stack</h2>
+                    <p className="text-slate-400 text-sm mt-3">Advanced full-stack components and layouts optimized for peak performance.</p>
+                </div>
 
-            {/* Selected Projects Showcase */}
-            <ProjectsShowcase projects={projects} loading={loading} />
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {techStack.map((tech, i) => (
+                        <div
+                            key={i}
+                            className="tech-card neo-card glass-panel p-8 rounded-xl flex flex-col gap-4 group"
+                        >
+                            <div className="w-12 h-12 rounded-lg bg-[#c6f135]/10 border border-[#c6f135]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                {tech.icon}
+                            </div>
+                            <h3 className="text-lg font-bold text-white mt-2">{tech.name}</h3>
+                            <p className="text-sm text-slate-400 leading-relaxed">{tech.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
 
-            {/* CTA Section */}
-            <CTASection />
+            {/* Projects Showcase Summary */}
+            <section ref={projectsSectionRef} className="py-24 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 relative z-10">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
+                    <div>
+                        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">Selected Projects</h2>
+                        <p className="text-slate-400 text-sm mt-3">A handpicked selection of production sites showcasing development and dynamic frontend interactions.</p>
+                    </div>
+                    <Link
+                        to="/projects"
+                        className="inline-flex items-center gap-2 text-[#c6f135] hover:text-[#b8f135] font-bold group py-1 border-b border-[#c6f135]/20 hover:border-[#c6f135] transition-all text-xs tracking-widest uppercase"
+                    >
+                        ALL PROJECTS
+                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                </div>
+
+                {loading ? (
+                    <div className="flex justify-center items-center py-20">
+                        <div className="w-10 h-10 border-4 border-[#c6f135]/20 border-t-[#c6f135] rounded-full animate-spin" />
+                    </div>
+                ) : (
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {projects.map((project) => (
+                            <div key={project._id} className="project-anim-card group flex flex-col rounded-2xl overflow-hidden glass-panel border-white/5 hover:border-[#c6f135]/20 transition-all duration-500 shadow-lg">
+                                <div className="relative overflow-hidden aspect-video">
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/20 to-transparent opacity-60" />
+                                </div>
+
+                                <div className="p-8 flex flex-col flex-grow justify-between gap-6">
+                                    <div className="flex flex-col gap-3">
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.tags.map((tag) => (
+                                                <span key={tag} className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 text-slate-350 select-none border border-white/10">{tag}</span>
+                                            ))}
+                                        </div>
+                                        <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#c6f135] transition-colors duration-300 mt-1">{project.title}</h3>
+                                        <p className="text-sm text-slate-400 leading-relaxed line-clamp-2">{project.description}</p>
+                                    </div>
+
+                                    <Link
+                                        to={`/projects/${project._id}`}
+                                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white hover:text-[#c6f135] group/link transition-colors self-start"
+                                    >
+                                        View Details
+                                        <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+
+            {/* CTA Wrap */}
+            <section className="py-24 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 text-center relative overflow-hidden rounded-3xl bg-gradient-to-tr from-indigo-950/10 to-[#c6f135]/5 border border-white/5 shadow-inner">
+                <div className="absolute -top-40 -left-40 w-80 h-80 rounded-full bg-[#c6f135]/5 blur-[80px]" />
+                <div className="relative z-10 max-w-2xl mx-auto py-8">
+                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-6">Have a project idea?</h2>
+                    <p className="text-slate-400 text-sm md:text-base mb-8 leading-relaxed max-w-lg mx-auto">
+                        I am currently taking on new clients and project challenges. Let's arrange a brief discovery session to work out details.
+                    </p>
+                    <Link
+                        to="/contact"
+                        className="inline-flex items-center px-8 py-4 rounded bg-[#c6f135] hover:bg-[#b8f135] text-black font-bold uppercase tracking-widest text-xs transition duration-300 shadow-lg shadow-[#c6f135]/10"
+                    >
+                        Start a Conversation
+                    </Link>
+                </div>
+            </section>
         </div>
     );
 }
