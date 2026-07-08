@@ -261,8 +261,8 @@ export default function Home() {
                         </div>
 
                         {/* Center: developer image */}
-                        <div className="lg:col-span-4 flex items-end justify-center relative min-h-[200px] lg:min-h-0">
-                            <div className="relative flex items-end justify-center h-full w-full max-w-[300px] mx-auto">
+                        <div className="lg:col-span-4 flex items-center justify-center relative min-h-[200px] lg:min-h-0">
+                            <div className="relative flex items-end justify-center h-full w-full max-w-[300px] mx-auto -translate-y-8">
                                 {/* Ghost trail 1 */}
                                 <img src={DEV_IMAGE} alt="" aria-hidden
                                     className="absolute bottom-0 w-[160px] md:w-[200px] lg:w-[235px] opacity-10 grayscale -translate-x-[44px] scale-[0.93] pointer-events-none" />
@@ -275,11 +275,6 @@ export default function Home() {
                                     alt="Nabil Hasan – Full-Stack Developer"
                                     className="hero-dev-image relative bottom-0 z-10 w-[160px] md:w-[200px] lg:w-[235px] object-contain object-bottom grayscale hover:grayscale-0 transition-all duration-700 hover:scale-[1.03]"
                                 />
-
-                                {/* Floating name card under portrait */}
-                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#0d130a] text-[#caff21] text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full whitespace-nowrap z-20">
-                                    Nabil Hasan
-                                </div>
                             </div>
                         </div>
 
