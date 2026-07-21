@@ -154,7 +154,12 @@ export default function Home() {
     ];
 
     return (
-        <div ref={heroRef} className="w-full bg-[#0d130a]">
+        <div ref={heroRef} className="w-full bg-[#161616]">
+            <div className="absolute inset-0 z-0 flex flex-wrap gap-4 opacity-[0.03] scale-150 rotate-[-10deg]">
+                {Array.from({ length: 400 }).map((_, i) => (
+                    <div key={i} className="w-24 h-24 bg-white rounded-3xl" />
+                ))}
+            </div>
             {/* ─── HERO SECTION ─────────────────────────────────────────── */}
             <section className="px-3 pt-3 sm:px-4 sm:pt-4">
                 <section className="relative w-full mt-[-5rem] flex flex-col justify-between overflow-hidden bg-[#caff21] rounded-2xl sm:rounded-3xl"

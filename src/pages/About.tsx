@@ -15,7 +15,7 @@ export default function About() {
     }, []);
 
     return (
-        <div ref={containerRef} className="min-h-screen pt-32 pb-12 px-6 flex flex-col items-center justify-center relative overflow-hidden bg-[#161616]">
+        <div ref={containerRef} className="min-h-screen pt-32 pb-12 px-6 flex flex-col items-center justify-center relative overflow-hidden">
 
             {/* Background Pattern - Rounded Rectangles to match reference */}
             <div className="absolute inset-0 z-0 flex flex-wrap gap-4 opacity-[0.03] scale-150 rotate-[-10deg]">
@@ -50,10 +50,10 @@ export default function About() {
                     </div>
                 </div>
 
-                {/* Right Purple Card */}
-                <div className="reveal-card bg-[#250d68] rounded-3xl p-10 md:p-14 w-full md:w-2/5 md:mt-24 shadow-[0_30px_60px_rgba(37,13,104,0.6)] relative z-20 md:border-l-0 border border-white/5 self-start hover:-translate-y-2 transition-transform duration-500 min-h-[300px]">
+                {/* Right Purple Card#250d68 text-indigo-100/90*/}
+                <div className="reveal-card bg-[#caff21]  rounded-3xl p-10 md:p-14 w-full md:w-2/5 md:mt-24 shadow-[0_30px_60px_rgba(37,13,104,0.6)] relative z-20 md:border-l-0 border border-white/5 self-start hover:-translate-y-2 transition-transform duration-500 min-h-[300px]">
                     <h2 className="text-xl font-bold text-white mb-4 tracking-wider uppercase">OBJECTIVE</h2>
-                    <p className="text-indigo-100/90 leading-relaxed text-[15px] md:text-base font-medium">
+                    <p className="text-black leading-relaxed text-[15px] md:text-base font-medium">
                         To architect a robust, scalable frontend ecosystem that prioritizes fluid user experience, lightning-fast performance, and seamlessly integrates complex backend services into a unified immersive web interface.
                     </p>
                 </div>
