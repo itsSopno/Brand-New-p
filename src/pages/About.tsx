@@ -1,134 +1,93 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Zap, Code, Shield } from 'lucide-react';
 
 export default function About() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo('.reveal-item',
+            gsap.fromTo('.reveal-card',
                 { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }
+                { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out' }
             );
         }, containerRef);
         return () => ctx.revert();
     }, []);
 
-    const coreSkills = [
-        { title: 'Frontend Technologies', skills: ['React', 'TypeScript', 'Tailwind CSS', 'Redux Toolkit', 'GSAP', 'Next.js'] },
-        { title: 'Backend & Database', skills: ['Node.js', 'Express', 'Mongoose', 'MongoDB', 'RESTful APIs', 'GraphQL'] },
-        { title: 'Tools & DevOps', skills: ['Git', 'Docker', 'Vite', 'Postman', 'ESLint', 'CI/CD'] }
-    ];
-
-    const experience = [
-        { year: '2024 - Present', role: 'Lead Frontend Developer', company: 'Digital Agency Inc.', desc: 'Spearheaded modern UI overhaul using NextJS and GSAP, improving performance benchmarks.' },
-        { year: '2022 - 2024', role: 'Full Stack Engineer', company: 'Cloud solutions LLC', desc: 'Maintained and architected node rest APIs and reactive interfaces backed by MongoDB logs.' },
-        { year: '2020 - 2022', role: 'Associate Software Engineer', company: 'Nexus Tech', desc: 'Assisted in building custom CRM dashboards and responsive HTML email systems.' }
-    ];
-
     return (
-        <div ref={containerRef} className="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col gap-24">
-            {/* Intro section */}
-            <section className="grid md:grid-cols-5 gap-12 items-center">
-                <div className="md:col-span-3 flex flex-col gap-6">
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight reveal-item">
-                        Who is <span className="text-gradient">BrandNewDay</span>?
-                    </h1>
-                    <p className="text-slate-400 leading-relaxed reveal-item text-lg">
-                        I am Nabail, a passionate software developer specializing in crafting premium web interfaces and backends. I focus on creating high-performance applications that marry clean code design with sophisticated user interactions.
-                    </p>
-                    <p className="text-slate-405 text-slate-400 leading-relaxed reveal-item">
-                        With solid expertise in both standard client architectures (React, GSAP, Tailwind) and full-stack services (Node, Express, MongoDB), I help bridge the gap between creative visual designs and high-fidelity code bases.
-                    </p>
+        <div ref={containerRef} className="min-h-screen pt-32 pb-12 px-6 flex flex-col items-center justify-center relative overflow-hidden bg-[#161616]">
 
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-6 reveal-item">
-                        <div className="p-4 bg-white/5 border border-white/5 rounded-lg text-center">
-                            <span className="block text-3xl font-black text-indigo-400">5+</span>
-                            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1 block">Years Experience</span>
+            {/* Background Pattern - Rounded Rectangles to match reference */}
+            <div className="absolute inset-0 z-0 flex flex-wrap gap-4 opacity-[0.03] scale-150 rotate-[-10deg]">
+                {Array.from({ length: 400 }).map((_, i) => (
+                    <div key={i} className="w-24 h-24 bg-white rounded-3xl" />
+                ))}
+            </div>
+
+            <div className="absolute top-0 left-0 w-full h-[80vh] bg-gradient-to-b from-red-600/20 to-transparent pointer-events-none hidden" />
+
+            <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col md:flex-row items-stretch justify-center -space-y-4 md:space-y-0 md:-space-x-12">
+
+                {/* Left White Card */}
+                <div className="reveal-card bg-white rounded-3xl p-10 md:p-14 w-full md:w-3/5 text-slate-900 shadow-2xl relative z-10 border border-slate-100 flex flex-col justify-between min-h-[460px]">
+                    <div className="flex flex-col gap-10">
+                        <div>
+                            <h2 className="text-2xl font-black mb-3 text-[#1f2022] tracking-wide">BRIEF</h2>
+                            <p className="text-[#3b3c3f] leading-relaxed text-[15px] md:text-base font-medium">
+                                The project required a bleeding-edge frontend interface that perfectly balances aesthetic appeal with high-octane performance.
+                            </p>
                         </div>
-                        <div className="p-4 bg-white/5 border border-white/5 rounded-lg text-center">
-                            <span className="block text-3xl font-black text-pink-400">40+</span>
-                            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1 block">Sites Launched</span>
+                        <div>
+                            <h2 className="text-2xl font-black mb-3 text-[#1f2022] tracking-wide">APPROACH</h2>
+                            <p className="text-[#3b3c3f] leading-relaxed text-[15px] md:text-base font-medium">
+                                The foundation relies on modern web architectural patterns, including React, TypeScript, and fluid animations. By merging creative web design with robust engineering, we deliver digital experiences that captivate users and scale effortlessly.
+                            </p>
                         </div>
-                        <div className="p-4 bg-white/5 border border-white/5 rounded-lg text-center">
-                            <span className="block text-3xl font-black text-emerald-400">99%</span>
-                            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1 block">Client Smiles</span>
-                        </div>
-                        <div className="p-4 bg-white/5 border border-white/5 rounded-lg text-center">
-                            <span className="block text-3xl font-black text-amber-400">24/7</span>
-                            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-1 block">Prompt Support</span>
-                        </div>
+                    </div>
+                    <div className="mt-12 flex flex-col items-start max-w-full">
+                        <span className="text-[#646669] font-semibold text-xl tracking-wide mb-1">Creative Engineering &</span>
+                        <span className="text-[3.5rem] md:text-[4.5rem] font-black text-[#1b1c1e] tracking-tighter leading-none hover:text-[#250d68] transition-colors duration-300">DEVELOPMENT</span>
                     </div>
                 </div>
 
-                {/* Profile Side Image block */}
-                <div className="md:col-span-2 reveal-item relative group">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-pink-500 rounded-2xl blur-[20px] opacity-25 group-hover:opacity-40 transition-opacity duration-500" />
-                    <div className="relative border border-white/10 rounded-2xl aspect-[3/4] overflow-hidden bg-slate-900/60">
-                        <img
-                            src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=600&auto=format&fit=crop"
-                            alt="Nabail Developer portrait"
-                            className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-700 ease-out"
-                        />
+                {/* Right Purple Card */}
+                <div className="reveal-card bg-[#250d68] rounded-3xl p-10 md:p-14 w-full md:w-2/5 md:mt-24 shadow-[0_30px_60px_rgba(37,13,104,0.6)] relative z-20 md:border-l-0 border border-white/5 self-start hover:-translate-y-2 transition-transform duration-500 min-h-[300px]">
+                    <h2 className="text-xl font-bold text-white mb-4 tracking-wider uppercase">OBJECTIVE</h2>
+                    <p className="text-indigo-100/90 leading-relaxed text-[15px] md:text-base font-medium">
+                        To architect a robust, scalable frontend ecosystem that prioritizes fluid user experience, lightning-fast performance, and seamlessly integrates complex backend services into a unified immersive web interface.
+                    </p>
+                </div>
+            </div>
+
+            {/* Bottom Bar attached to White Card layout */}
+            <div className="reveal-card relative z-30 w-full md:w-auto md:max-w-4xl mx-auto md:ml-auto md:mr-auto -mt-4 md:-mt-[4.5rem] md:self-end md:pr-12 lg:pr-32 flex justify-center bg-white rounded-[2rem] px-8 py-8 shadow-2xl overflow-hidden md:translate-x-12 border-t border-slate-100/50">
+                <div className="grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-8 justify-between w-full">
+
+                    <div className="flex flex-col md:px-4 md:border-r border-slate-200 w-full">
+                        <span className="text-[11px] font-black text-[#1f2022] tracking-widest uppercase mb-2">VISION</span>
+                        <span className="text-[#3b3c3f] text-[13px] font-semibold leading-tight">Build<br />interfaces<br />that scale</span>
                     </div>
-                </div>
-            </section>
 
-            {/* Core skills */}
-            <section className="flex flex-col gap-12 border-t border-white/5 pt-20">
-                <div>
-                    <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-2 reveal-item">Technical Expertise</h2>
-                    <p className="text-slate-400 reveal-item">Selected technologies I work with regularly to build full-scale apps.</p>
-                </div>
+                    <div className="flex flex-col md:px-4 md:border-r border-slate-200 w-full">
+                        <span className="text-[11px] font-black text-[#1f2022] tracking-widest uppercase mb-2">MISSION</span>
+                        <span className="text-[#3b3c3f] text-[13px] font-semibold leading-tight">Deliver<br />performance<br />through<br />code</span>
+                    </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    {coreSkills.map((category, idx) => (
-                        <div key={idx} className="glass-panel border-white/5 p-8 rounded-xl flex flex-col gap-6 reveal-item">
-                            <h3 className="text-lg font-bold text-white border-b border-white/5 pb-3 flex items-center gap-2">
-                                {idx === 0 && <Zap size={18} className="text-indigo-400" />}
-                                {idx === 1 && <Code size={18} className="text-pink-400" />}
-                                {idx === 2 && <Shield size={18} className="text-emerald-400" />}
-                                {category.title}
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {category.skills.map((skill) => (
-                                    <span
-                                        key={skill}
-                                        className="text-xs px-3 py-1.5 rounded bg-white/5 border border-white/5 hover:border-white/15 text-slate-300 hover:text-white transition-all cursor-default"
-                                    >
-                                        {skill}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                    <div className="flex flex-col md:px-4 md:border-r border-slate-200 w-full">
+                        <span className="text-[11px] font-black text-[#1f2022] tracking-widest uppercase mb-2">FOCUS</span>
+                        <span className="text-[#3b3c3f] text-[13px] font-semibold leading-tight">Interactive<br />immersive web<br />design</span>
+                    </div>
 
-            {/* Experience history */}
-            <section className="flex flex-col gap-12 border-t border-white/5 pt-20">
-                <div>
-                    <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-2 reveal-item">Career Pathway</h2>
-                    <p className="text-slate-400 reveal-item">My professional development timeline and corporate achievements.</p>
-                </div>
+                    <div className="flex flex-col md:px-4 w-full">
+                        <span className="text-[11px] font-black text-[#1f2022] tracking-widest uppercase mb-2">OUTCOME</span>
+                        <span className="text-[#3b3c3f] text-[13px] font-semibold leading-tight">High-converting<br />user<br />experiences</span>
+                    </div>
 
-                <div className="flex flex-col gap-8 max-w-4xl">
-                    {experience.map((item, idx) => (
-                        <div key={idx} className="flex gap-6 reveal-item group">
-                            <div className="flex flex-col items-center">
-                                <div className="w-4 h-4 rounded-full border-2 border-indigo-500 bg-slate-900 group-hover:scale-125 transition-transform" />
-                                <div className="w-0.5 h-full bg-white/5 mt-2" />
-                            </div>
-                            <div className="flex flex-col gap-2 pb-8">
-                                <span className="text-xs font-semibold text-indigo-400 uppercase tracking-widest">{item.year}</span>
-                                <h3 className="text-xl font-bold text-white">{item.role} <span className="text-slate-500 font-normal">at</span> {item.company}</h3>
-                                <p className="text-sm text-slate-400 leading-relaxed mt-1">{item.desc}</p>
-                            </div>
-                        </div>
-                    ))}
                 </div>
-            </section>
+            </div>
+
+            {/* Ambient glows */}
+            <div className="absolute top-1/2 right-[10%] w-[300px] h-[300px] bg-[#3f198f] rounded-full blur-[120px] opacity-40 mix-blend-screen pointer-events-none" />
         </div>
     );
 }

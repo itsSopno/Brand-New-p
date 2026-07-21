@@ -14,6 +14,7 @@ import {
     Instagram,
     Youtube
 } from 'lucide-react';
+import About from './About';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -284,7 +285,8 @@ export default function Home() {
                 </section>
             </section>
 
-
+            {/* About Section */}
+            <About />
 
             {/* Tech Capabilities Section */}
             <section id="tech-section" ref={techRef} className="py-28 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 relative z-10">
