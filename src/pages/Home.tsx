@@ -211,10 +211,10 @@ export default function Home() {
                         <p className="hero-reveal-text text-[9px] sm:text-xs font-bold uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[#0d130a]/50 mb-2 sm:mb-3">
                             Based in Bangladesh&nbsp;·&nbsp;Building for the Web
                         </p>
-                        <h1 className="hero-reveal-text font-black uppercase leading-[0.82] tracking-tighter m-0 select-none">
-                            <span className="block text-[17vw] sm:text-[14vw] md:text-[11vw] lg:text-[9vw] text-[#0d130a]">Nabil</span>
+                        <h1 className="hero-reveal-text font-black uppercase leading-[0.82] tracking-tighter m-0 select-none flex flex-col items-center">
+                            <span className="block text-[22vw] sm:text-[14vw] md:text-[11vw] lg:text-[9vw] text-[#0d130a]">Nabil</span>
                             <span
-                                className="block text-[17vw] sm:text-[14vw] md:text-[11vw] lg:text-[9vw]"
+                                className="block text-[22vw] sm:text-[14vw] md:text-[11vw] lg:text-[9vw]"
                                 style={{ WebkitTextStroke: '2px #0d130a', color: 'transparent' }}
                             >
                                 Hasan

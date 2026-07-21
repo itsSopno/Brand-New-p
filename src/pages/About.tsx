@@ -39,9 +39,9 @@ export default function About() {
                             </p>
                         </div>
                     </div>
-                    <div className="mt-12 flex flex-col items-start max-w-full">
-                        <span className="text-[#646669] font-semibold text-xl tracking-wide mb-1">Creative Engineering &</span>
-                        <span className="text-[3.5rem] md:text-[4.5rem] font-black text-[#1b1c1e] tracking-tighter leading-none hover:text-[#250d68] transition-colors duration-300">DEVELOPMENT</span>
+                    <div className="mt-8 md:mt-12 flex flex-col items-start max-w-full">
+                        <span className="text-[#646669] font-semibold text-lg md:text-xl tracking-wide mb-1">Creative Engineering &</span>
+                        <span className="text-4xl sm:text-5xl md:text-[4.5rem] font-black text-[#1b1c1e] tracking-tighter leading-none hover:text-[#250d68] transition-colors duration-300">DEVELOPMENT</span>
                     </div>
                 </div>
 
@@ -55,8 +55,8 @@ export default function About() {
             </div>
 
             {/* Bottom Bar attached to White Card layout */}
-            <div className="reveal-card relative z-30 w-full md:w-auto md:max-w-4xl mx-auto md:ml-auto md:mr-auto -mt-4 md:-mt-[4.5rem] md:self-end md:pr-12 lg:pr-32 flex justify-center bg-white rounded-[2rem] px-8 py-8 shadow-2xl overflow-hidden md:translate-x-12 border-t border-slate-100/50">
-                <div className="grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-8 justify-between w-full">
+            <div className="reveal-card relative z-30 w-full md:w-auto md:max-w-4xl mx-auto md:ml-auto md:mr-auto -mt-4 md:-mt-[4.5rem] md:self-end md:pr-12 lg:pr-32 flex justify-center bg-white rounded-3xl md:rounded-[2rem] px-6 py-8 shadow-2xl overflow-hidden md:translate-x-12 border-t border-slate-100/50">
+                <div className="grid grid-cols-2 md:flex md:flex-row gap-6 md:gap-8 justify-between w-full gap-y-8">
 
                     <div className="flex flex-col md:px-4 md:border-r border-slate-200 w-full">
                         <span className="text-[11px] font-black text-[#1f2022] tracking-widest uppercase mb-2">VISION</span>
