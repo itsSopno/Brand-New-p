@@ -17,12 +17,7 @@ export default function About() {
     return (
         <div ref={containerRef} className="min-h-screen pt-32 pb-12 px-6 flex flex-col items-center justify-center relative overflow-hidden">
 
-            {/* Background Pattern - Rounded Rectangles to match reference */}
-            <div className="absolute inset-0 z-0 flex flex-wrap gap-4 opacity-[0.03] scale-150 rotate-[-10deg]">
-                {Array.from({ length: 400 }).map((_, i) => (
-                    <div key={i} className="w-24 h-24 bg-white rounded-3xl" />
-                ))}
-            </div>
+            {/* Background Pattern handled by parent container inside Home.tsx */}
 
             <div className="absolute top-0 left-0 w-full h-[80vh] bg-gradient-to-b from-red-600/20 to-transparent pointer-events-none hidden" />
 

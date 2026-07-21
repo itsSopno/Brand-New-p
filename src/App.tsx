@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Lenis from 'lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from './components/Navbar'
+
+gsap.registerPlugin(ScrollTrigger);
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
@@ -27,15 +31,20 @@ function App() {
 
         lenisRef.current = lenis;
 
-        function raf(time: number) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
 
-        requestAnimationFrame(raf);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
 
         // Scroll to top on route change helper
         return () => {
+            gsap.ticker.remove((time) => {
+                lenis.raf(time * 1000);
+            });
             lenis.destroy();
         };
     }, []);

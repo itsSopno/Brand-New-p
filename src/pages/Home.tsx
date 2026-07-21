@@ -155,11 +155,15 @@ export default function Home() {
 
     return (
         <div ref={heroRef} className="w-full bg-[#161616]">
-            <div className="absolute inset-0 z-0 flex flex-wrap gap-4 opacity-[0.03] scale-150 rotate-[-10deg]">
-                {Array.from({ length: 400 }).map((_, i) => (
-                    <div key={i} className="w-24 h-24 bg-white rounded-3xl" />
-                ))}
-            </div>
+            {/* Background Pattern - Scattered subtle shapes */}
+            <div
+                className="fixed inset-0 z-0 opacity-[0.04] pointer-events-none"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='10,0 20,17 0,17' fill='none' stroke='%23ffffff' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='60' r='1.5' fill='%23ffffff'/%3E%3Cpath d='M105,100 L115,100 M110,95 L110,105' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E")`,
+                    backgroundSize: '120px 120px',
+                    backgroundRepeat: 'repeat'
+                }}
+            />
             {/* ─── HERO SECTION ─────────────────────────────────────────── */}
             <section className="px-3 pt-3 sm:px-4 sm:pt-4">
                 <section className="relative w-full mt-[-5rem] flex flex-col justify-between overflow-hidden bg-[#caff21] rounded-2xl sm:rounded-3xl"
