@@ -15,6 +15,7 @@ import {
     Youtube
 } from 'lucide-react';
 import About from './About';
+import BestProjectShowcase from '../components/BestProjectShowcase';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -319,6 +320,9 @@ export default function Home() {
                     ))}
                 </div>
             </section>
+
+            {/* Featured Flagship Project */}
+            <BestProjectShowcase />
 
             {/* Projects Showcase Summary */}
             <section ref={projectsSectionRef} className="py-24 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 relative z-10">
