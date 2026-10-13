@@ -155,3 +155,42 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Modern Project Card Enhancements */
+.spotlight-card {
+  position: relative;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(198, 241, 53, 0.06), transparent 40%),
+              #111116;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(198, 241, 53, 0.4), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.badge-glow-lime {
+  box-shadow: 0 0 12px rgba(198, 241, 53, 0.35);
+}
+
+.badge-glow-amber {
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+}
+
+.badge-glow-blue {
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.35);
+}

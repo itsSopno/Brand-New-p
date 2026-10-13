@@ -7,8 +7,6 @@ import {
     Command,
     Code,
     Database,
-    ArrowRight,
-    ArrowUpRight,
     Twitter,
     ArrowDown,
     Instagram,
@@ -16,61 +14,37 @@ import {
 } from 'lucide-react';
 import About from './About';
 import BestProjectShowcase from '../components/BestProjectShowcase';
-
+import ProjectsShowcase from '../components/ProjectsShowcase';
+import { PROJECTS_DATA, ProjectItem } from '../data/projectsData';
+import image from '../pages/secend.jpeg'
 gsap.registerPlugin(ScrollTrigger);
 
-interface Project {
-    _id: string;
-    title: string;
-    description: string;
-    image: string;
-    tags: string[];
-    githubLink?: string;
-    demoLink?: string;
-    featured: boolean;
-}
-
 // NOTE: Replace this image URL with your own local file path when ready, e.g., "/src/assets/my-photo.png"
-const DEV_IMAGE = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=800&auto=format&fit=crop";
+const DEV_IMAGE = image;
 
 export default function Home() {
     const heroRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const techRef = useRef<HTMLDivElement>(null);
-    const projectsSectionRef = useRef<HTMLDivElement>(null);
 
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [projects, setProjects] = useState<ProjectItem[]>(PROJECTS_DATA);
+    const [loading, setLoading] = useState(false);
 
-    // Fetch featured projects
+    // Fetch featured projects or fallback to rich curated mock data
     useEffect(() => {
         fetch('/api/projects')
             .then(res => res.json())
             .then(data => {
-                const featured = data.filter((p: Project) => p.featured);
-                setProjects(featured.length > 0 ? featured : data.slice(0, 3));
+                if (Array.isArray(data) && data.length > 0) {
+                    const featured = data.filter((p: ProjectItem) => p.featured);
+                    setProjects(featured.length > 0 ? featured : data);
+                } else {
+                    setProjects(PROJECTS_DATA);
+                }
                 setLoading(false);
             })
-            .catch(err => {
-                console.error('Failed to fetch from API:', err);
-                setProjects([
-                    {
-                        _id: 'mock1',
-                        title: "Sleek Real Estate platform",
-                        description: "A premium real estate listing application using automated mapping APIs.",
-                        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=600&auto=format&fit=crop",
-                        tags: ["React", "TypeScript", "Tailwind CSS", "Express", "MongoDB"],
-                        featured: true
-                    },
-                    {
-                        _id: 'mock2',
-                        title: "Creative Design Portfolio",
-                        description: "An animated photography showreel presenting creative images using WebGL and GSAP animations.",
-                        image: "https://images.unsplash.com/photo-1542241647-9cbb2225278b?q=80&w=600&auto=format&fit=crop",
-                        tags: ["React", "GSAP", "CSS Canvas", "Framer Motion"],
-                        featured: true
-                    }
-                ]);
+            .catch(() => {
+                setProjects(PROJECTS_DATA);
                 setLoading(false);
             });
     }, []);
@@ -123,22 +97,6 @@ export default function Home() {
                         trigger: techRef.current,
                         start: 'top 85%',
                         toggleActions: 'play none none none'
-                    }
-                }
-            );
-
-            // Project card reveals
-            gsap.fromTo('.project-anim-card',
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: projectsSectionRef.current,
-                        start: 'top 80%'
                     }
                 }
             );
@@ -323,64 +281,8 @@ export default function Home() {
 
             {/* Featured Flagship Project */}
             <BestProjectShowcase />
-
-            {/* Projects Showcase Summary */}
-            <section ref={projectsSectionRef} className="py-24 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 relative z-10">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-                    <div>
-                        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">Selected Projects</h2>
-                        <p className="text-slate-400 text-sm mt-3">A handpicked selection of production sites showcasing development and dynamic frontend interactions.</p>
-                    </div>
-                    <Link
-                        to="/projects"
-                        className="inline-flex items-center gap-2 text-[#c6f135] hover:text-[#b8f135] font-bold group py-1 border-b border-[#c6f135]/20 hover:border-[#c6f135] transition-all text-xs tracking-widest uppercase"
-                    >
-                        ALL PROJECTS
-                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                </div>
-
-                {loading ? (
-                    <div className="flex justify-center items-center py-20">
-                        <div className="w-10 h-10 border-4 border-[#c6f135]/20 border-t-[#c6f135] rounded-full animate-spin" />
-                    </div>
-                ) : (
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {projects.map((project) => (
-                            <div key={project._id} className="project-anim-card group flex flex-col rounded-2xl overflow-hidden glass-panel border-white/5 hover:border-[#c6f135]/20 transition-all duration-500 shadow-lg">
-                                <div className="relative overflow-hidden aspect-video">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-[#0a0a0c]/20 to-transparent opacity-60" />
-                                </div>
-
-                                <div className="p-8 flex flex-col flex-grow justify-between gap-6">
-                                    <div className="flex flex-col gap-3">
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.tags.map((tag) => (
-                                                <span key={tag} className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 text-slate-350 select-none border border-white/10">{tag}</span>
-                                            ))}
-                                        </div>
-                                        <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#c6f135] transition-colors duration-300 mt-1">{project.title}</h3>
-                                        <p className="text-sm text-slate-400 leading-relaxed line-clamp-2">{project.description}</p>
-                                    </div>
-
-                                    <Link
-                                        to={`/projects/${project._id}`}
-                                        className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white hover:text-[#c6f135] group/link transition-colors self-start"
-                                    >
-                                        View Details
-                                        <ArrowUpRight size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                                    </Link>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </section>
+            {/* Selected Projects Showcase */}
+            <ProjectsShowcase projects={projects} loading={loading} />
 
             {/* CTA Wrap */}
             <section className="py-24 px-6 lg:px-12 max-w-7xl mx-auto border-t border-white/5 text-center relative overflow-hidden rounded-3xl bg-gradient-to-tr from-indigo-950/10 to-[#c6f135]/5 border border-white/5 shadow-inner">

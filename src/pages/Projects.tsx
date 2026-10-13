@@ -1,147 +1,152 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
-
-interface Project {
-    _id: string;
-    title: string;
-    description: string;
-    image: string;
-    tags: string[];
-    githubLink?: string;
-    demoLink?: string;
-    featured: boolean;
-}
+import { ArrowLeft, Search, Sparkles, Filter } from 'lucide-react';
+import ProjectCard from '../components/ProjectCard';
+import { PROJECTS_DATA, CATEGORIES, ProjectItem } from '../data/projectsData';
 
 export default function Projects() {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [activeFilter, setActiveFilter] = useState('All');
+    const [projects, setProjects] = useState<ProjectItem[]>(PROJECTS_DATA);
+    const [loading, setLoading] = useState(false);
+    const [activeFilter, setActiveFilter] = useState<string>('All Works');
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         fetch('/api/projects')
             .then(res => res.json())
             .then(data => {
-                setProjects(data);
+                if (Array.isArray(data) && data.length > 0) {
+                    setProjects(data);
+                } else {
+                    setProjects(PROJECTS_DATA);
+                }
                 setLoading(false);
             })
-            .catch(err => {
-                console.error('Failed to fetch projects:', err);
-                // Local fallback data
-                setProjects([
-                    {
-                        _id: 'mock1',
-                        title: "Sleek Real Estate platform",
-                        description: "A premium real estate listing application using automated mapping APIs.",
-                        image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=600&auto=format&fit=crop",
-                        tags: ["React", "TypeScript", "Tailwind CSS", "Express", "MongoDB"],
-                        featured: true
-                    },
-                    {
-                        _id: 'mock2',
-                        title: "Creative Design Portfolio",
-                        description: "An animated photography showreel presenting creative images using WebGL and GSAP animations.",
-                        image: "https://images.unsplash.com/photo-1542241647-9cbb2225278b?q=80&w=600&auto=format&fit=crop",
-                        tags: ["React", "GSAP", "CSS Canvas", "Framer Motion"],
-                        featured: true
-                    },
-                    {
-                        _id: 'mock3',
-                        title: "Modern FinTech Analytics Dashboard",
-                        description: "Real-time analytics engine tracking crypto indices with robust charting overlays.",
-                        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
-                        tags: ["TypeScript", "React", "Recharts", "Tailwind CSS", "Node.js"],
-                        featured: false
-                    }
-                ]);
+            .catch(() => {
+                setProjects(PROJECTS_DATA);
                 setLoading(false);
             });
     }, []);
 
-    const allTags = ['All', ...new Set(projects.flatMap(p => p.tags))];
-
-    const filteredProjects = activeFilter === 'All'
-        ? projects
-        : projects.filter(p => p.tags.includes(activeFilter));
+    const filteredProjects = useMemo(() => {
+        return projects.filter(p => {
+            const matchesCategory = activeFilter === 'All Works' || p.category === activeFilter;
+            const matchesSearch = searchQuery.trim() === '' ||
+                p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+            return matchesCategory && matchesSearch;
+        });
+    }, [projects, activeFilter, searchQuery]);
 
     return (
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col gap-12">
-            <div className="max-w-xl">
-                <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-none mb-4">
-                    All Projects
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 flex flex-col gap-10">
+            {/* Top Back navigation */}
+            <div className="flex items-center justify-between">
+                <Link
+                    to="/"
+                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-slate-400 hover:text-[#c6f135] transition-colors group"
+                >
+                    <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                    <span>Back to Home</span>
+                </Link>
+
+                <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#c6f135] animate-pulse" />
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#c6f135]">
+                        Archive Directory • {projects.length} Entries
+                    </span>
+                </div>
+            </div>
+
+            {/* Header */}
+            <div className="max-w-3xl">
+                <div className="flex items-center gap-2.5 mb-3">
+                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#c6f135] font-semibold">
+                        [ SYSTEM ARCHIVE ]
+                    </span>
+                </div>
+                <h1 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight leading-none mb-4">
+                    Engineering{' '}
+                    <span className="text-stroke-heavy text-white hover:text-[#c6f135] transition-colors">
+                        Archive
+                    </span>
                 </h1>
-                <p className="text-slate-400">
-                    Explore complete collection of custom development work, web designs, and API frameworks.
+                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    Explore the complete collection of full-stack platforms, WebGL experiments, distributed microservices, and design systems.
                 </p>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap gap-2 border-b border-white/5 pb-6">
-                {allTags.map((tag) => (
-                    <button
-                        key={tag}
-                        onClick={() => setActiveFilter(tag)}
-                        className={`px-4 py-2 rounded text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${activeFilter === tag
-                            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/10'
-                            : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
-                            }`}
-                    >
-                        {tag}
-                    </button>
-                ))}
+            {/* Filter & Search Toolbar */}
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-white/5">
+                {/* Category Pills */}
+                <div className="flex flex-wrap gap-2 items-center">
+                    <div className="hidden sm:flex items-center gap-1.5 mr-1 text-slate-400 text-xs font-mono uppercase">
+                        <Filter size={12} className="text-[#c6f135]" />
+                        <span>Filter:</span>
+                    </div>
+
+                    {CATEGORIES.map((cat) => {
+                        const count = cat === "All Works"
+                            ? projects.length
+                            : projects.filter(p => p.category === cat).length;
+                        const isActive = activeFilter === cat;
+
+                        return (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveFilter(cat)}
+                                className={`px-3.5 py-1.5 rounded-lg text-xs font-mono tracking-wider transition-all duration-300 flex items-center gap-2 ${
+                                    isActive
+                                        ? 'bg-[#c6f135] text-black font-bold shadow-[0_0_15px_rgba(198,241,53,0.3)]'
+                                        : 'bg-white/[0.03] text-slate-400 hover:text-white hover:bg-white/[0.08] border border-white/5'
+                                }`}
+                            >
+                                <span>{cat}</span>
+                                <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                                    isActive ? 'bg-black/20 text-black font-extrabold' : 'bg-white/10 text-slate-400'
+                                }`}>
+                                    {count}
+                                </span>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {/* Search Input */}
+                <div className="relative min-w-[260px]">
+                    <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                        type="text"
+                        placeholder="Search by tech, keyword..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full bg-[#121216] border border-white/10 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#c6f135]/50 transition-colors font-mono"
+                    />
+                </div>
             </div>
 
+            {/* Projects Grid */}
             {loading ? (
-                <div className="flex justify-center items-center py-20">
-                    <div className="w-10 h-10 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+                <div className="flex flex-col justify-center items-center py-24 gap-4">
+                    <div className="w-12 h-12 border-4 border-[#c6f135]/20 border-t-[#c6f135] rounded-full animate-spin" />
+                    <p className="text-xs font-mono text-slate-400 uppercase tracking-widest">Loading Archive...</p>
+                </div>
+            ) : filteredProjects.length === 0 ? (
+                <div className="py-24 text-center glass-panel rounded-2xl border border-white/5 max-w-md mx-auto p-8">
+                    <Sparkles className="w-8 h-8 text-[#c6f135] mx-auto mb-3" />
+                    <h3 className="text-lg font-bold text-white mb-1">No Projects Found</h3>
+                    <p className="text-xs text-slate-400 mb-4">No records match your selected category or search keyword.</p>
+                    <button
+                        onClick={() => { setActiveFilter('All Works'); setSearchQuery(''); }}
+                        className="px-5 py-2 rounded-full bg-[#c6f135] text-black text-xs font-mono font-bold hover:bg-white transition-all"
+                    >
+                        Reset All Filters
+                    </button>
                 </div>
             ) : (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
                     {filteredProjects.map((project) => (
-                        <div key={project._id} className="group border border-white/5 hover:border-white/10 bg-slate-900/30 rounded-xl overflow-hidden flex flex-col justify-between transition-all duration-500 hover:-translate-y-1">
-                            <div className="relative aspect-video overflow-hidden">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                                />
-                            </div>
-
-                            <div className="p-6 flex flex-col flex-grow justify-between gap-6">
-                                <div className="flex flex-col gap-2">
-                                    <div className="flex flex-wrap gap-1.5">
-                                        {project.tags.map((tag) => (
-                                            <span key={tag} className="text-[9px] font-bold px-2 py-0.5 rounded bg-white/5 text-slate-400 select-none uppercase tracking-wider">{tag}</span>
-                                        ))}
-                                    </div>
-                                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors mt-2">{project.title}</h3>
-                                    <p className="text-xs text-slate-400 leading-relaxed mt-1">{project.description}</p>
-                                </div>
-
-                                <div className="flex items-center justify-between mt-2 pt-4 border-t border-white/5">
-                                    <Link
-                                        to={`/projects/${project._id}`}
-                                        className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-indigo-455 text-indigo-400 hover:text-white transition-colors"
-                                    >
-                                        Details
-                                        <ArrowUpRight size={12} />
-                                    </Link>
-
-                                    <div className="flex gap-4">
-                                        {project.githubLink && (
-                                            <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-xs">
-                                                GitHub
-                                            </a>
-                                        )}
-                                        {project.demoLink && (
-                                            <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-indigo-400 text-xs">
-                                                Live Demo
-                                            </a>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <ProjectCard key={project._id} project={project} />
                     ))}
                 </div>
             )}
